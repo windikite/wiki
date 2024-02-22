@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    {% if entryText %}
+        {{entryText|safe}}
+
+        <form action="{% url 'encyclopedia:edit' %}" method="GET">
+            {% csrf_token %}
+            <input type="hidden" name="entryName" value="{{entryName}}">
+            <input type="hidden" name="entryText" value="{{entryText}}">
+            <input type="submit" value="edit">
+        </form>
+    {% else %}
+        <h1>Page not found</h1>
+        <p>Do you want to create a page for {{entryName}}?</p>
+    {% endif %}
+
+{% endblock %}
